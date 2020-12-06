@@ -19,7 +19,7 @@ console.log(title)
             <div>トップページ</div>
             <button onClick={() => dispatch(signOut())}>Sign Out</button>
             <button onClick={() => dispatch(push('/new'))}>new</button>
-
+            <div>兎</div>
         </>
     )
 }
