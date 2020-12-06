@@ -1,13 +1,85 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.text-filed-container {
+    margin: 0 auto;
+    /* 中央よせ  */
+    max-width: 400px;
+    padding: 1rem;
+    /* top1rem*/
+    height: auto;
+    width: calc(100% - 2rem);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.space-s {
+    height: 15px;
+}
+
+.space-m {
+    height: 25px;
+}
+
+.space-l {
+    height: 35px;
+}
+
+.title-sample {
+    color: rgb(102, 231, 134);
+    font-size: 2rem;
+}
+
+.display-none {
+    display: none;
+}
+
+.list-image-size {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.image-size {
+    position: relative;
+    overflow: hidden;
+    width: 100%
+}
+
+.image-size::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.image-size>img {
+    position: absolute;
+    object-fit: cover;
+    object-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+.list-image-size>.image-size {
+    margin: .5rem;
+    width: calc(50% - 1rem);
 }
