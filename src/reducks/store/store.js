@@ -4,12 +4,8 @@ import {
     combineReducers,
     applyMiddleware
 } from 'redux';
-import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk';
 import {connectRouter, routerMiddleware} from 'connected-react-router'
-
-// import {LoadingReducer} from '../loading/reducers';
-// import {ProductsReducer} from '../products/reducers';
 import {UsersReducer} from '../users/reducers';
 import { ArticlesReducer } from '../article/reducers';
 

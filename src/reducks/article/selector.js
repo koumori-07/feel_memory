@@ -2,7 +2,7 @@ import { createSelector } from "reselect"
 
 const articleSelector = (state) => state.articles;
 
-export const getArticleTitle = createSelector(
+export const getArticles = createSelector(
     [articleSelector],
-    state => state.title
+    state => state.list
 )

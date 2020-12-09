@@ -2,30 +2,38 @@ import { signInAction,signOutAction } from "./action";
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimestamp } from '../../firebase/index'
 
+
+const usersRef = db.collection('users')
+
 // 認証
+
 export const listenAuthState = () => {
-    return async (dispatch)=>{
+    return async (dispatch) => {
         return auth.onAuthStateChanged(user => {
             if (user) {
-                const uid=user.uid
-
-                db.collection('users').doc(uid).get()
+                usersRef.doc(user.uid).get()
                     .then(snapshot => {
-                        const data = snapshot.data();
+                        const data = snapshot.data()
+                        if (!data) {
+                            throw new Error('ユーザーデータが存在しません。')
+                        }
 
+                        // Update logged in user state
                         dispatch(signInAction({
-                            isSigneIn: true,
+                            email: data.email,
+                            isSignedIn: true,
                             role: data.role,
-                            uid: uid,
+                            uid: user.uid,
                             username: data.username,
                         }))
                     })
             } else {
-                dispatch(push('/signup'))
+                dispatch(push('/signin'))
             }
         })
     }
-}
+};
+
 // サインイン
 export const signIn = (email, password) => {
     return async (dispatch) => {

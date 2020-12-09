@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { listenAuthState } from './reducks/users/operation';
 import { getSignedIn } from './reducks/users/selector'
+import { getArticles } from './reducks/article/selector';
+import { fetchArticle } from './reducks/article/operation';
+
 
 const Auth = ({children}) => {
     const dispatch = useDispatch();
@@ -12,10 +15,11 @@ const Auth = ({children}) => {
     useEffect(() => {
         if (!isSignedIn) {
             dispatch(listenAuthState())
+            dispatch(fetchArticle())
         }
-    }, []);
+    }, [dispatch,isSignedIn]);
 
-    if (isSignedIn) {
+    if (!isSignedIn) {
         return <></>
     } else {
         return children

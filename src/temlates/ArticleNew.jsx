@@ -1,7 +1,7 @@
 import { push } from 'connected-react-router';
 import React, { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { ImageArea } from '../components/Image';
+import { ImageArea } from '../components/Article';
 import { ButtonModel, TextInput } from '../components/UIkit'
 import { newArticle } from '../reducks/article/operation';
 

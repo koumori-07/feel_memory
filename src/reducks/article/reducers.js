@@ -1,11 +1,12 @@
 import initialState from '../store/initialstate'
 import * as Action from './action'
+
 export const ArticlesReducer = (state = initialState.articles, action) => {
     switch (action.type) {
-        case Action.NEW_ARTICLE:
+        case Action.FETCH_ARTICLES:
             return {
                 ...state,
-                ...action.payload
+                list:[...action.payload]
             }
         default:
             return state
