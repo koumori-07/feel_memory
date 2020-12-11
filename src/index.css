@@ -52,6 +52,34 @@ code {
     display: none;
 }
 
+.space-side{
+    padding:0 50px;
+    
+}
+.spacebetween {
+justify-content: space-between;
+margin:0 250px;
+margin: 0 auto;
+max-width: 1024;
+}
+
+.title{
+    font-family: 'Apple Chancery','Impact','Arial Rounded MT Bold',sans-serif;
+    font-size: 35px;
+}
+
+.main{
+    padding: 96px 0/*上下余白（header,futter)*/
+}
+
+.main-container{
+    margin: 0 auto; 
+    max-width: 700px;
+    /* position: relative;
+    padding: 0 1rem; */
+    text-align: center;
+    width: 100%;
+}
 .list-image-size {
     display: flex;
     flex-flow: wrap;

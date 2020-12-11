@@ -7,7 +7,7 @@ const App = () => {
   return (
     <>
         <Header />
-      <div >
+      <div className="main">
         <Router />
       </div>
     </>
