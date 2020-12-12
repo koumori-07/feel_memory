@@ -9,6 +9,9 @@ const initialstate = {
         title: "",
         article: "",
         images: [],
+    },
+    feeles: {
+        feel:""
     }
 };
 

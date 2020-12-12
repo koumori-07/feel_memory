@@ -26,15 +26,12 @@ const useStyles = makeStyles({
 });
 const ArticleCard = (props) => {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
 
     const title = props.article.title;
     const article = props.article.article;
-    const images = props.article.images
 
     const seconds =props.article.update_at.seconds
     const nanoseconds = props.article.update_at.nanoseconds
-    const nano= seconds
 
     console.log(new Date(nanoseconds).toString())
     return (

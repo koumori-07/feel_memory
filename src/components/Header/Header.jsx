@@ -3,14 +3,14 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Button, createStyles } from '@material-ui/core';
+import { createStyles } from '@material-ui/core';
 import { push } from 'connected-react-router';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import SearchTags from './SearchTag';
 
 const useStyles=makeStyles(()=>
 createStyles({
@@ -79,14 +79,9 @@ const Header = () => {
             </AppBar>
             <Drawer
                 open={openleft}
-                anchor="left">
-                <IconButton>
-                    {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                </IconButton>
-                <button onClick={() => dispatch(push('/'))}>top</button>
-                <button onClick={() =>
-                    dispatch(push('/new'),
-                    )}>新規投稿</button>
+                anchor="left"
+            >
+              <SearchTags handleDrawerCloseleft={handleDrawerCloseleft}/>
             </Drawer>
             <Drawer
                 open={openright}

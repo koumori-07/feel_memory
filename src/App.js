@@ -1,5 +1,5 @@
 import React from 'react';
-import Header  from './components/Header'
+import Header  from './components/Header/Header'
 import Router from "./Router";
 import "./index.css"
 const App = () => {

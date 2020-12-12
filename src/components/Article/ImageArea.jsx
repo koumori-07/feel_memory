@@ -55,7 +55,6 @@ const ImageArea = (props) => {
                 )}
             </div>
             <div className="text-right">
-                <span>画像を選択</span>
                 <IconButton className={classes.icon}>
                     <label>
                         <AddAPhotoIcon />

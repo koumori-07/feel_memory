@@ -13,7 +13,7 @@ export const newArticle = (title, article, images) => {
             title: title,
             article: article,
             images: images,
-            update_at: timestamp.toDate()
+            update_at: timestamp
         }
         const ref = articleRef.doc();
         const id = ref.id;
