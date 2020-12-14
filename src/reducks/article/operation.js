@@ -1,11 +1,11 @@
 import { push } from "connected-react-router";
 import { db, FirebaseTimestamp } from "../../firebase"
-import { fetchArticleAction } from "./action";
+import { deleteArticleAction, fetchArticleAction } from "./action";
 
 const articleRef = db.collection("articles")
 
 // articleの保存
-export const newArticle = (title, article, images) => {
+export const newArticle = (title, article, images,items) => {
     return async (dispatch) => {
         const timestamp = FirebaseTimestamp.now();
 
@@ -13,7 +13,8 @@ export const newArticle = (title, article, images) => {
             title: title,
             article: article,
             images: images,
-            update_at: timestamp
+            update_at: timestamp,
+            items:items
         }
         const ref = articleRef.doc();
         const id = ref.id;
@@ -21,7 +22,7 @@ export const newArticle = (title, article, images) => {
         data.created_at = timestamp
         //doc()メソッド,DB内で、データを保存するための場所を採番
         //set()メソッド,IDの場所に保存
-        return articleRef.doc(id).set(data) // firestoreに保存
+        return articleRef.doc(id).set(data,{merge:true}) // firestoreに保存
             .then(() => {
                 dispatch(push('/'))
             }).catch((error) => {
@@ -39,9 +40,19 @@ export const fetchArticle = () => {
                 snapshots.forEach(snapshot => {
                     const article = snapshot.data()
                     articleList.push(article)
-                    console.log(snapshot.data().update_at.toString());
                 })
                 dispatch(fetchArticleAction(articleList))
             })
+    }
+}
+// articleの削除
+export const deleteAricle = (id) => {
+    return async (dispatch, getState) => {
+        articleRef.doc(id).delete()
+            .then(() => {
+                const prevArticle = getState().articles.list
+                const nextArticle = prevArticle.filter(article => article.id !== id)
+                dispatch(deleteArticleAction(nextArticle))
+        })
     }
 }

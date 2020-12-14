@@ -5,12 +5,15 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import { deleteAricle } from '../../reducks/article/operation';
 
 
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
-        marginTop:5
+        marginTop: 5
     },
     bullet: {
         display: 'inline-block',
@@ -26,39 +29,38 @@ const useStyles = makeStyles({
 });
 const ArticleCard = (props) => {
     const classes = useStyles();
-
+    const dispatch = useDispatch();
     const title = props.article.title;
     const article = props.article.article;
+    const items = props.article.items;
 
-    const seconds =props.article.update_at.seconds
-    const nanoseconds = props.article.update_at.nanoseconds
 
-    console.log(new Date(nanoseconds).toString())
     return (
         <Card className={classes.root} variant="outlined">
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                {new Date(seconds).toString()}
-   
+
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    {title}
+                    title:{title}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {article}
+                    article:{article}
                 </Typography>
-                <Typography variant="body2" component="p">
-                    <br />
-                    {/* {images.length > 0 &&(
-                        images.map(image=>(
-                            <div key={image.id}>{image}</div>
+                <div>
+                    {items.length > 0 && (
+                        items.map((items, index) => (
+                            <Typography key={index}>
+                                {items}
+                            </Typography>
                         ))
-                    )} */}
-                </Typography>
+                    )}
+                </div>
             </CardContent>
             <CardActions>
                 <Button size="small">Learn More</Button>
             </CardActions>
+            <button onClick={() => dispatch(deleteAricle(props.article.id))}>削除</button>
         </Card>
     );
 }

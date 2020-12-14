@@ -9,7 +9,6 @@ import { fetchFeel } from './reducks/feeles/operation';
 const Auth = ({children}) => {
     const dispatch = useDispatch();
     const selector = useSelector((state) => state);
-
     const isSignedIn = getSignedIn(selector)
 
     useEffect(() => {
@@ -20,6 +19,7 @@ const Auth = ({children}) => {
         }
     }, [dispatch,isSignedIn]);
 
+   
     if (!isSignedIn) {
         return <></>
     } else {

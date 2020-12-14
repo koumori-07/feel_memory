@@ -12,23 +12,23 @@ import { push } from 'connected-react-router';
 import { useDispatch } from "react-redux";
 import SearchTags from './SearchTag';
 
-const useStyles=makeStyles(()=>
-createStyles({
-    wrap:{
-        flexGrow: 1,
-    },
-    bar:{
-        backgroundColor:"white",
-        color:"#357a38",
+const useStyles = makeStyles(() =>
+    createStyles({
+        wrap: {
+            flexGrow: 1,
         },
-    left:{
-        marginRight:"100px"
-    },
-    right:{
-        marginLeft:"100px"
-    }
+        bar: {
+            backgroundColor: "white",
+            color: "#357a38",
+        },
+        left: {
+            marginRight: "100px"
+        },
+        right: {
+            marginLeft: "100px"
+        }
 
-}))
+    }))
 
 const Header = () => {
     const theme = useTheme();
@@ -42,14 +42,14 @@ const Header = () => {
         setOpenleft(true);
     };
 
-    const handleDrawerCloseleft = () => {
-        setOpenleft(false);
-    };
-
     const handleDrawerOpenright = () => {
         setOpenright(true);
     };
 
+       const handleDrawerCloseleft = () => {
+        setOpenleft(false);
+       };
+    
     const handleDrawerCloseright = () => {
         setOpenright(false);
     };
@@ -63,8 +63,8 @@ const Header = () => {
                         edge="end"
                         onClick={handleDrawerOpenleft}
                         className={classes.left}
-                        >
-                        <MenuIcon/>
+                    >
+                        <MenuIcon />
                     </IconButton>
                     <div className="title">Feel Memory</div>
                     <IconButton
@@ -73,7 +73,7 @@ const Header = () => {
                         edge="end"
                         onClick={handleDrawerOpenright}
                         className={classes.right}>
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -81,7 +81,7 @@ const Header = () => {
                 open={openleft}
                 anchor="left"
             >
-              <SearchTags handleDrawerCloseleft={handleDrawerCloseleft}/>
+                <SearchTags handleDrawerCloseleft={handleDrawerCloseleft} />
             </Drawer>
             <Drawer
                 open={openright}
@@ -90,9 +90,7 @@ const Header = () => {
                     {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
                 <button onClick={() => dispatch(push('/'))}>top</button>
-                <button onClick={() =>
-                    dispatch(push('/new'),
-                    )}>新規投稿</button>
+                <button onClick={() => dispatch(push('/new'))}>新規投稿</button>
             </Drawer>
         </div>
     )

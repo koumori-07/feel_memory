@@ -6,8 +6,13 @@ export const ArticlesReducer = (state = initialState.articles, action) => {
         case Action.FETCH_ARTICLES:
             return {
                 ...state,
-                list:[...action.payload]
-            }
+                list: [...action.payload]
+            };
+            case Action.DELETE_ARTICLE:
+            return {
+                ...state,
+                list: action.payload
+            };
         default:
             return state
     }

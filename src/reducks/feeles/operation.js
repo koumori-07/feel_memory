@@ -1,12 +1,11 @@
 import { push } from "connected-react-router";
-import { db, FirebaseTimestamp } from "../../firebase"
+import { db } from "../../firebase"
 import { deleteFeelAction, fetchFeelAction } from "./action";
 
 const feelesRef = db.collection("feeles")
 // タグの保存
 export const newFeel = (feel) => {
     return async (dispatch) => {
-        const timestamp = FirebaseTimestamp.now();
 
         const data = {
             feel: feel,
@@ -15,9 +14,9 @@ export const newFeel = (feel) => {
         const id = ref.id;
         data.id = id
 
-        return feelesRef.doc(id).set(data)
+        return feelesRef.doc(id).set(data,{marge:true})
             .then(() => {
-            dispatch(push('/new'))
+                dispatch(fetchFeel())
             }).catch((error) => {
             throw new Error(error)
         })
