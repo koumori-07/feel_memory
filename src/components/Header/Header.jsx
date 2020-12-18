@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -37,22 +37,20 @@ const Header = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const [leftSidebar, setleftSidebar] = useState(false);
+    const [rightSidebar, setrightSidebar] = useState(false);
 
-    const handleDrawerOpenleft = () => {
-        setOpenleft(true);
-    };
+    const leftDrawerToggle = useCallback((event, isOpen) => {
+        setleftSidebar(isOpen)
+    }, [setleftSidebar]);
 
-    const handleDrawerOpenright = () => {
-        setOpenright(true);
-    };
 
-       const handleDrawerCloseleft = () => {
-        setOpenleft(false);
-       };
-    
-    const handleDrawerCloseright = () => {
-        setOpenright(false);
-    };
+    const rightDrawerToggle = useCallback((event, isOpen) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+        setrightSidebar(isOpen)
+    }, [setrightSidebar]);
     return (
         <div className={classes.wrap}>
             <AppBar position="fixed" className={classes.bar} >
@@ -61,8 +59,7 @@ const Header = () => {
                         color="inherit"
                         aria-label="open left"
                         edge="end"
-                        onClick={handleDrawerOpenleft}
-                        className={classes.left}
+                        onClick={(e) => leftDrawerToggle(e, true)} className={classes.left}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -71,24 +68,23 @@ const Header = () => {
                         color="inherit"
                         aria-label="open right"
                         edge="end"
-                        onClick={handleDrawerOpenright}
+                        onClick={(e) => rightDrawerToggle(e, true)}
                         className={classes.right}>
                         <MenuIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
             <Drawer
-                open={openleft}
+                open={leftSidebar}
                 anchor="left"
             >
-                <SearchTags handleDrawerCloseleft={handleDrawerCloseleft} />
+                <SearchTags leftDrawerToggle={leftDrawerToggle} />
             </Drawer>
             <Drawer
-                open={openright}
-                anchor="right">
-                <IconButton onClick={handleDrawerCloseright}>
-                    {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                </IconButton>
+                open={rightSidebar}
+                anchor="right"
+                onClick={(e) => rightDrawerToggle(e, false)}
+            >
                 <button onClick={() => dispatch(push('/'))}>top</button>
                 <button onClick={() => dispatch(push('/new'))}>新規投稿</button>
             </Drawer>
