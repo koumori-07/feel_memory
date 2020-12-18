@@ -153,3 +153,6 @@ max-width: 1024;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.day-space{
+    margin:10px 0;
+}

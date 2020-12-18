@@ -5,24 +5,27 @@ import { deleteArticleAction, fetchArticleAction } from "./action";
 const articleRef = db.collection("articles")
 
 // articleの保存
-export const newArticle = (title, article, images,items) => {
+export const newArticle = (title, article, images, items) => {
     return async (dispatch) => {
         const timestamp = FirebaseTimestamp.now();
-
-        const data = {
-            title: title,
-            article: article,
-            images: images,
-            update_at: timestamp,
-            items:items
+        if (title === "" || article === "" ) {
+            alert("未入力の項目があります\nタイトル,記事の入力を行ってください")
+            return false
         }
+            const data = {
+                title: title,
+                article: article,
+                images: images,
+                update_at: timestamp,
+                items: items
+            }
         const ref = articleRef.doc();
         const id = ref.id;
         data.id = id
         data.created_at = timestamp
         //doc()メソッド,DB内で、データを保存するための場所を採番
         //set()メソッド,IDの場所に保存
-        return articleRef.doc(id).set(data,{merge:true}) // firestoreに保存
+        return articleRef.doc(id).set(data, { merge: true }) // firestoreに保存
             .then(() => {
                 dispatch(push('/'))
             }).catch((error) => {
@@ -36,7 +39,7 @@ export const fetchArticle = () => {
         articleRef.orderBy('update_at', 'desc').get()
             .then(snapshots => {
                 const articleList = []
-                
+
                 snapshots.forEach(snapshot => {
                     const article = snapshot.data()
                     articleList.push(article)
@@ -53,6 +56,6 @@ export const deleteAricle = (id) => {
                 const prevArticle = getState().articles.list
                 const nextArticle = prevArticle.filter(article => article.id !== id)
                 dispatch(deleteArticleAction(nextArticle))
-        })
+            })
     }
 }

@@ -44,8 +44,8 @@ const useStyles = makeStyles({
             background: "#c5e1a5",
             borderRadius: "30px",
             height: "35px",
-            width:"35px"
-         },
+            width: "35px"
+        },
     }
 });
 const ArticleCard = (props) => {
@@ -55,7 +55,9 @@ const ArticleCard = (props) => {
     const article = props.article.article;
     const items = props.article.items;
     const images = props.article.images;
+    const timestamp = props.article.update_at.toDate()
 
+    console.log(timestamp)
     return (
         <Card className={classes.root} variant="outlined">
             <CardContent className="text-left">
@@ -70,6 +72,9 @@ const ArticleCard = (props) => {
                         <div className="article">
                             {article}
                         </div>
+                        <div className="day-space">
+                          {timestamp.seconds}
+                            </div>
                         <div className="item-list">
                             {items.length > 0 && (
                                 items.map((items, index) => (
