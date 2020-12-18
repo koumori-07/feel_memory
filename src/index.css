@@ -30,6 +30,9 @@ code {
 .text-right {
     text-align: right;
 }
+.space{
+    width: 10hw;
+}
 
 .space-s {
     height: 15px;
@@ -42,8 +45,14 @@ code {
 .space-l {
     height: 35px;
 }
+.space-left-s{
+    margin-left:3px;
+}
 .space-left{
     margin-left:10px;
+}
+.space-left-l{
+    margin-left:20%;
 }
 .space-right{
     margin-right:10px;
@@ -75,7 +84,9 @@ max-width: 1024;
     font-family: 'Apple Chancery','Impact','Arial Rounded MT Bold',sans-serif;
     font-size: 35px;
 }
-
+.title:hover {
+    transform: scale(1.2, 1.5);
+  }
 
 .main{
     padding: 96px 0/*上下余白（header,futter)*/
@@ -96,7 +107,7 @@ max-width: 1024;
 .image-size {
     position: relative;
     overflow: hidden;
-    width: 100%;
+    width: 80%;
 }
 
 .image-size::before {
@@ -136,9 +147,9 @@ max-width: 1024;
 .article{
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     overflow: hidden;
-    height: 100px;
+    height: 50px;
     margin-top:25px;
     margin-bottom:25px;
 }
@@ -155,4 +166,14 @@ max-width: 1024;
 }
 .day-space{
     margin:10px 0;
+}
+.linkButton{
+width: 35vw;
+font-size:30%;
+}
+.space-left-l{
+font-size: 3vw;
+}
+.linkHover:hover{
+    background-color: #CBFFD3;
 }

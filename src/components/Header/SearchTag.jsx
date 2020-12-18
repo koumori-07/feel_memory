@@ -13,6 +13,8 @@ import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 import Divider from '@material-ui/core/Divider';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -49,9 +51,9 @@ const SearchTags = (props) => {
 
     return (
         <>
-             <IconButton onClick={(e)=>props.leftDrawerToggle(e,false)}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+            <IconButton onClick={(e) => props.leftDrawerToggle(e, false)}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
             {/* 中身↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */}
             <div className="space-left space-top">
                 <TextInput
@@ -73,24 +75,24 @@ const SearchTags = (props) => {
             </div>
             <Divider />
             <div className="space-top">
-            {saveFeeles.length > 0 && (
-                saveFeeles.map(feel => {
-                    let icon;
-                    if (feel.feel === 'React') {
-                        icon = <TagFacesIcon />;
-                    } return (
-                        <div key={feel.id} className="space-left ">
-                            <Chip
-                                icon={icon}
-                                label={feel.feel}
-                                onDelete={() => dispatch(deleteFeel(feel.id))}
-                                className={classes.chip}
-                            />
-                        </div>
-                    )
-                }
+                {saveFeeles.length > 0 && (
+                    saveFeeles.map(feel => {
+                        let icon;
+                        if (feel.feel === 'React') {
+                            icon = <TagFacesIcon />;
+                        } return (
+                            <div key={feel.id} className="space-left ">
+                                <Chip
+                                    icon={<LocalOfferIcon />}
+                                    label={feel.feel}
+                                    onDelete={() => dispatch(deleteFeel(feel.id))}
+                                    className={classes.chip}
+                                />
+                            </div>
+                        )
+                    }
                     ))}
-                </div>
+            </div>
         </>
     )
 }

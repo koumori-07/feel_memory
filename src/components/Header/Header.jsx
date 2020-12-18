@@ -11,6 +11,7 @@ import { createStyles } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { useDispatch } from "react-redux";
 import SearchTags from './SearchTag';
+import Link from './Link';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -63,7 +64,7 @@ const Header = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <div className="title">Feel Memory</div>
+                    <div className="title" onClick={() => dispatch(push('/'))}>Feel Memory</div>
                     <IconButton
                         color="inherit"
                         aria-label="open right"
@@ -85,8 +86,7 @@ const Header = () => {
                 anchor="right"
                 onClick={(e) => rightDrawerToggle(e, false)}
             >
-                <button onClick={() => dispatch(push('/'))}>top</button>
-                <button onClick={() => dispatch(push('/new'))}>新規投稿</button>
+                <Link />
             </Drawer>
         </div>
     )

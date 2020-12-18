@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import Auth from './Auth';
 import { ArticleNew, SignIn, SignUp, TopPage } from './temlates';
 
+
 const Router = () => {
     return (
         <Switch >
