@@ -79,6 +79,10 @@ margin:0 250px;
 margin: 0 auto;
 max-width: 1024;
 }
+.space-between{
+    justify-content: space-between;
+  
+}
 
 .title{
     font-family: 'Apple Chancery','Impact','Arial Rounded MT Bold',sans-serif;
@@ -134,9 +138,10 @@ max-width: 1024;
     display: flex;
     width: 100%;
     height: 100%;
+    justify-content: space-between;
 }
 .container_left{
-    width: 60%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -165,7 +170,8 @@ max-width: 1024;
     white-space: nowrap;
 }
 .day-space{
-    margin:10px 0;
+    margin-top: 10px;
+    margin-left:3vh;
 }
 .linkButton{
 width: 35vw;
@@ -177,3 +183,4 @@ font-size: 3vw;
 .linkHover:hover{
     background-color: #CBFFD3;
 }
+

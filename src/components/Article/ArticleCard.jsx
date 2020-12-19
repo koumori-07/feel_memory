@@ -12,12 +12,15 @@ import Chip from '@material-ui/core/Chip';
 import ImageSwiper from '../UIkit/ImageSwiper';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { push } from 'connected-react-router';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
         marginTop: 5,
-        height:"15%"
+        height: "15%",
     },
     bullet: {
         display: 'inline-block',
@@ -31,7 +34,7 @@ const useStyles = makeStyles({
         height: "8vh",
         overflow: "hidden",
         textOverflow: "ellipsis",
-        whiteSpace:"nowrap"
+        whiteSpace: "nowrap"
     },
     pos: {
         marginBottom: 12,
@@ -43,7 +46,7 @@ const useStyles = makeStyles({
     },
     icon: {
         color: "green",
-        marginLeft:"30px",
+        marginTop: "10px",
         '&:hover': {
             background: "#c5e1a5",
             borderRadius: "30px",
@@ -62,10 +65,10 @@ const ArticleCard = (props) => {
 
     const dateToString = (data) => {
         return data.getFullYear() + '/'
-        + ('00' + (data.getMonth()+1)).slice(-2) + '/'
-        + ('00' + data.getDate()).slice(-2) + ' '
-        + ('00' + data.getHours()).slice(-2) + ':'
-        + ('00' + data.getMinutes()).slice(-2) 
+            + ('00' + (data.getMonth() + 1)).slice(-2) + '/'
+            + ('00' + data.getDate()).slice(-2) + ' '
+            + ('00' + data.getHours()).slice(-2) + ':'
+            + ('00' + data.getMinutes()).slice(-2)
     };
     const timestamp = dateToString(props.article.update_at.toDate())
 
@@ -94,16 +97,26 @@ const ArticleCard = (props) => {
                                 ))
                             )}
                         </div>
-                        <CardActions>
-                        <span className="day-space">
-                            {timestamp}
-                        </span>
-                            <DeleteForeverIcon
-                                className={classes.icon}
-                                onClick={() => dispatch(deleteAricle(props.article.id))}
-                            />
+                        <CardActions className="space-between">
+                            <div>
+                                <DeleteForeverIcon
+                                    className={classes.icon}
+                                    onClick={() => dispatch(deleteAricle(props.article.id))}
+                                />
+                                <VisibilityIcon
+                                    className={classes.icon}
+                                    onClick={() => dispatch(push('/article/' + props.article.id))}
+                                />
+                                <EditIcon
+                                    className={classes.icon}
+                                    onClick={() => dispatch(push('/new/:id' + props.article.id))}
+                                />
+                            </div>
+                            <span className="day-space">
+                                {timestamp}
+                            </span>
                         </CardActions>
-                      
+
                     </div>
                     <div className="container_right">
                         <ImageSwiper images={images} />

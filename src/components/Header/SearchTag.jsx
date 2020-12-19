@@ -10,8 +10,6 @@ import { deleteFeel, fetchFeel, newFeel } from '../../reducks/feeles/operation';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-import TagFacesIcon from '@material-ui/icons/TagFaces';
 import Divider from '@material-ui/core/Divider';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
@@ -77,10 +75,7 @@ const SearchTags = (props) => {
             <div className="space-top">
                 {saveFeeles.length > 0 && (
                     saveFeeles.map(feel => {
-                        let icon;
-                        if (feel.feel === 'React') {
-                            icon = <TagFacesIcon />;
-                        } return (
+                        return (
                             <div key={feel.id} className="space-left ">
                                 <Chip
                                     icon={<LocalOfferIcon />}

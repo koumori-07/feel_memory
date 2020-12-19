@@ -16,19 +16,16 @@ const ArticleNew = () => {
     const [title, setTitle] = useState(""),
         [article, setArticle] = useState(""),
         [images, setImages] = useState([]),
-        [createFeeles, setCreateFeeles] = useState(""),
+
         [checkedItems, setCheckedItems] = useState([]);
 
     const inputTitle = useCallback((event) => {
         setTitle(event.target.value)
     }, [setTitle])
 
-
-
     const inputArticle = useCallback((event) => {
         setArticle(event.target.value)
     }, [setArticle])
-
 
     return (
         <>
