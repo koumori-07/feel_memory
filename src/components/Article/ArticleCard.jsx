@@ -109,7 +109,7 @@ const ArticleCard = (props) => {
                                 />
                                 <EditIcon
                                     className={classes.icon}
-                                    onClick={() => dispatch(push('/new/:id' + props.article.id))}
+                                    onClick={() => dispatch(push('/new/' + props.article.id))}
                                 />
                             </div>
                             <span className="day-space">

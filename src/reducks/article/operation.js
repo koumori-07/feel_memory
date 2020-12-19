@@ -5,7 +5,7 @@ import { deleteArticleAction, fetchArticleAction } from "./action";
 const articleRef = db.collection("articles")
 
 // articleの保存
-export const newArticle = (title, article, images, items) => {
+export const newArticle = (id,title, article, images, items) => {
     return async (dispatch) => {
         const timestamp = FirebaseTimestamp.now();
         if (title === "" || article === "" ) {
@@ -19,14 +19,17 @@ export const newArticle = (title, article, images, items) => {
                 update_at: timestamp,
                 items: items
             }
-        const ref = articleRef.doc();
-        const id = ref.id;
-        data.id = id
-        data.created_at = timestamp
+        if (id === "") {
+            const ref = articleRef.doc();
+            id = ref.id;
+            data.id = id
+            data.created_at = timestamp
+        }
         //doc()メソッド,DB内で、データを保存するための場所を採番
         //set()メソッド,IDの場所に保存
         return articleRef.doc(id).set(data, { merge: true }) // firestoreに保存
             .then(() => {
+                dispatch(push('/new'))
                 dispatch(push('/'))
             }).catch((error) => {
                 throw new Error(error)
