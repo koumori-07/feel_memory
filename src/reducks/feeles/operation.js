@@ -38,7 +38,6 @@ export const fetchFeel = () => {
         feelesRef.get()
             .then(snapshot => {
                 const feelList = []
-
                 snapshot.forEach(snapshot => {
                     const feel = snapshot.data()
                     feelList.push(feel)

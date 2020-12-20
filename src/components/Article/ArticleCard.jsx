@@ -90,6 +90,7 @@ const ArticleCard = (props) => {
                                             label={items}
                                             className={classes.tag}
                                             variant="outlined"
+                                            onClick={()=>console.log(items)}
                                         />
                                     </span>
                                 ))

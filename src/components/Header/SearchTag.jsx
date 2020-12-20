@@ -10,9 +10,9 @@ import { deleteFeel, fetchFeel, newFeel } from '../../reducks/feeles/operation';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Divider from '@material-ui/core/Divider';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import SeachSpace from './SeachSpace';
+import { selectFeeles, allFeeles } from '../../reducks/article/operation';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,25 +71,28 @@ const SearchTags = (props) => {
                 }
                     label={"追加"}
                 />
+                <div className="space-s" />
             </div>
-                {saveFeeles.length > 0 && (
-                    saveFeeles.map(feel => {
-                        return (
-                            <div key={feel.id} className="space-left ">
-                                <Chip
-                                    icon={<LocalOfferIcon />}
-                                    label={feel.feel}
-                                    onDelete={() => dispatch(deleteFeel(feel.id))}
-                                    className={classes.chip}
-                                />
-                            </div>
-                        )
-                    }
-                    ))}
-            <div className="space-m"/>
-            <Divider />
-            <div className="space-m"/>
-            <SeachSpace />
+            <Chip
+                label={"全て"}
+                className={classes.chip}
+                onClick={() => dispatch(allFeeles())}
+            />
+            {saveFeeles.length > 0 && (
+                saveFeeles.map(feel => {
+                    return (
+                        <div key={feel.id} className="space-left ">
+                            <Chip
+                                icon={<LocalOfferIcon />}
+                                label={feel.feel}
+                                onDelete={() => dispatch(deleteFeel(feel.id))}
+                                className={classes.chip}
+                                onClick={() => dispatch(selectFeeles(feel.feel))}
+                            />
+                        </div>
+                    )
+                }
+                ))}
         </>
     )
 }
