@@ -10,9 +10,9 @@ import { deleteFeel, fetchFeel, newFeel } from '../../reducks/feeles/operation';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Divider from '@material-ui/core/Divider';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import SeachSpace from './SeachSpace';
+import { selectFeeles, allFeeles } from '../../reducks/article/operation';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,8 +55,6 @@ const SearchTags = (props) => {
             </IconButton>
             {/* 中身↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */}
             <div className="space-left space-top">
-                <SeachSpace />
-                <div className="space-m" />
                 <TextInput
                     fullWidth={false}// 幅の指定
                     label={"feel"}
@@ -75,6 +73,11 @@ const SearchTags = (props) => {
                 />
                 <div className="space-s" />
             </div>
+            <Chip
+                label={"全て"}
+                className={classes.chip}
+                onClick={() => dispatch(allFeeles())}
+            />
             {saveFeeles.length > 0 && (
                 saveFeeles.map(feel => {
                     return (
@@ -84,6 +87,7 @@ const SearchTags = (props) => {
                                 label={feel.feel}
                                 onDelete={() => dispatch(deleteFeel(feel.id))}
                                 className={classes.chip}
+                                onClick={() => dispatch(selectFeeles(feel.feel))}
                             />
                         </div>
                     )

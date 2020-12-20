@@ -5,20 +5,20 @@ import { deleteArticleAction, fetchArticleAction } from "./action";
 const articleRef = db.collection("articles")
 
 // articleの保存
-export const newArticle = (id,title, article, images, items) => {
+export const newArticle = (id, title, article, images, items) => {
     return async (dispatch) => {
         const timestamp = FirebaseTimestamp.now();
-        if (title === "" || article === "" ) {
+        if (title === "" || article === "") {
             alert("未入力の項目があります\nタイトル,記事の入力を行ってください")
             return false
         }
-            const data = {
-                title: title,
-                article: article,
-                images: images,
-                update_at: timestamp,
-                items: items
-            }
+        const data = {
+            title: title,
+            article: article,
+            images: images,
+            update_at: timestamp,
+            items: items
+        }
         if (id === "") {
             const ref = articleRef.doc();
             id = ref.id;
@@ -59,6 +59,41 @@ export const deleteAricle = (id) => {
                 const prevArticle = getState().articles.list
                 const nextArticle = prevArticle.filter(article => article.id !== id)
                 dispatch(deleteArticleAction(nextArticle))
+            })
+    }
+}
+// feelesの抽出
+const feelesRef = db.collection("feeles")
+export const selectFeeles = (value) => {
+    return async (dispatch, getState) => {
+        feelesRef.doc(value).get()
+        articleRef.orderBy('update_at', 'desc').get()
+            .then(snapshots => {
+                const articleList = []
+                snapshots.forEach(snapshot => {
+                    const article = snapshot.data()
+                    if (article.items.includes(value)) {
+                        articleList.push(article)
+                        dispatch(fetchArticleAction(articleList))
+                    } else {
+                        dispatch(fetchArticleAction(articleList))
+                    }
+                })
+            })
+    }
+}
+// 全件表示
+export const allFeeles = (value) => {
+    return async (dispatch, getState) => {
+        articleRef.orderBy('update_at', 'desc').get()
+            .then(snapshots => {
+                const articleList = []
+                snapshots.forEach(snapshot => {
+                    const article = snapshot.data()
+                    articleList.push(article)
+                    dispatch(fetchArticleAction(articleList))
+
+                })
             })
     }
 }
