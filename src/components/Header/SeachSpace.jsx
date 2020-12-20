@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { ButtonModel, TextInput } from '../UIkit'
 
 const SeachSpace = () => {
+    const [feeles, setFeeles] = useState("")
+    
+    const inputFeeles = useCallback((event) => {
+        setFeeles(event.target.value)
+    }, [setFeeles])
+    const filterList = (event) => {
+        
+    }
     return (
-        <div　className="space-left">
+        <div>
               <TextInput
                     fullWidth={false}// 幅の指定
                     label={"検索"}
@@ -11,13 +19,13 @@ const SeachSpace = () => {
                     multiline={false}// 複数行の入力
                     required={true}// 必須か
                     rows={1}// 行数
-                    value={"a"}
+                    value={feeles}
                     type={"text"}
-                    onChange={console.log("まだだよ")}
+                    onChange={inputFeeles}
                 />
                 <ButtonModel 
                 label={"検索"}
-                onClick={()=>console.log("まだだよ")}
+                onClick={filterList}
                 />
             </div>
     )

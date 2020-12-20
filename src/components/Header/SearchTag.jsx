@@ -55,6 +55,8 @@ const SearchTags = (props) => {
             </IconButton>
             {/* 中身↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */}
             <div className="space-left space-top">
+                <SeachSpace />
+                <div className="space-m" />
                 <TextInput
                     fullWidth={false}// 幅の指定
                     label={"feel"}
@@ -71,25 +73,22 @@ const SearchTags = (props) => {
                 }
                     label={"追加"}
                 />
+                <div className="space-s" />
             </div>
-                {saveFeeles.length > 0 && (
-                    saveFeeles.map(feel => {
-                        return (
-                            <div key={feel.id} className="space-left ">
-                                <Chip
-                                    icon={<LocalOfferIcon />}
-                                    label={feel.feel}
-                                    onDelete={() => dispatch(deleteFeel(feel.id))}
-                                    className={classes.chip}
-                                />
-                            </div>
-                        )
-                    }
-                    ))}
-            <div className="space-m"/>
-            <Divider />
-            <div className="space-m"/>
-            <SeachSpace />
+            {saveFeeles.length > 0 && (
+                saveFeeles.map(feel => {
+                    return (
+                        <div key={feel.id} className="space-left ">
+                            <Chip
+                                icon={<LocalOfferIcon />}
+                                label={feel.feel}
+                                onDelete={() => dispatch(deleteFeel(feel.id))}
+                                className={classes.chip}
+                            />
+                        </div>
+                    )
+                }
+                ))}
         </>
     )
 }
