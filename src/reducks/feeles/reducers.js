@@ -1,14 +1,14 @@
-import initialState from '../store/initialstate'
+import initialstate from '../store/initialstate'
 import * as Action from './action'
 
-export const ArticlesReducer = (state = initialState.articles, action) => {
+export const FeelesReducer = (state = initialstate.feeles, action) => {
     switch (action.type) {
-        case Action.FETCH_ARTICLES:
+        case Action.FETCH_FEELES:
             return {
                 ...state,
                 list: [...action.payload]
             };
-            case Action.DELETE_ARTICLE:
+        case Action.DELETE_FEEL:
             return {
                 ...state,
                 list: action.payload

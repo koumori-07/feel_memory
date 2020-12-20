@@ -30,6 +30,9 @@ code {
 .text-right {
     text-align: right;
 }
+.space{
+    width: 10hw;
+}
 
 .space-s {
     height: 15px;
@@ -42,7 +45,21 @@ code {
 .space-l {
     height: 35px;
 }
-
+.space-left-s{
+    margin-left:3px;
+}
+.space-left{
+    margin-left:10px;
+}
+.space-left-l{
+    margin-left:20%;
+}
+.space-right{
+    margin-right:10px;
+}
+.space-top{
+    margin-top: 20px;
+}
 .title-sample {
     color: rgb(102, 231, 134);
     font-size: 2rem;
@@ -52,6 +69,40 @@ code {
     display: none;
 }
 
+.space-side{
+    padding:0 50px;
+    
+}
+.spacebetween {
+justify-content: space-between;
+margin:0 250px;
+margin: 0 auto;
+max-width: 1024;
+}
+.space-between{
+    justify-content: space-between;
+  
+}
+
+.title{
+    font-family: 'Apple Chancery','Impact','Arial Rounded MT Bold',sans-serif;
+    font-size: 35px;
+}
+.title:hover {
+    transform: scale(1.2, 1.5);
+  }
+
+.main{
+    padding: 96px 0/*上下余白（header,futter)*/
+}
+
+.main-container{
+    margin: 0 auto; 
+    max-width: 700px;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
 .list-image-size {
     display: flex;
     flex-flow: wrap;
@@ -60,7 +111,7 @@ code {
 .image-size {
     position: relative;
     overflow: hidden;
-    width: 100%
+    width: 80%;
 }
 
 .image-size::before {
@@ -83,3 +134,53 @@ code {
     margin: .5rem;
     width: calc(50% - 1rem);
 }
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+.container_left{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.container_right{
+    width: 40%;
+}
+.article{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    height: 50px;
+    margin-top:25px;
+    margin-bottom:25px;
+}
+.footer{
+    background-color: #89c7de;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 0;
+}
+.item-list{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.day-space{
+    margin-top: 10px;
+    margin-left:3vh;
+}
+.linkButton{
+width: 35vw;
+font-size:30%;
+}
+.space-left-l{
+font-size: 3vw;
+}
+.linkHover:hover{
+    background-color: #CBFFD3;
+}
+

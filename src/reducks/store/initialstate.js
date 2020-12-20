@@ -8,7 +8,10 @@ const initialstate = {
     articles: {
         title: "",
         article: "",
-        images: []
+        images: [],
+    },
+    feeles: {
+        feel:""
     }
 };
 

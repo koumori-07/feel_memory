@@ -1,13 +1,11 @@
 import React from 'react';
-import Header  from './components/Header'
 import Router from "./Router";
 import "./index.css"
-const App = () => {
 
+const App = () => {
   return (
     <>
-        <Header />
-      <div >
+      <div className="main">
         <Router />
       </div>
     </>

@@ -1,25 +1,31 @@
-import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getUserId, getUserName } from '../reducks/users/selector';
-import { signOut } from '../reducks/users/operation';
-import { push } from 'connected-react-router';
-import {  getArticleTitle } from '../reducks/article/selector';
+import { getArticles } from '../reducks/article/selector';
+import { ArticleCard } from '../components/Article';
+import { useEffect } from "react";
+import { fetchArticle } from "../reducks/article/operation";
+import Header from "../components/Header/Header";
 
 
 const TopPage = () => {
+    const selector = useSelector((state) => state);
+    const articles = getArticles(selector)
     const dispatch = useDispatch();
-    const selector = useSelector((state) => state)
 
-    const uid = getUserId(selector)
-    const username = getUserName(selector);
-    const title = getArticleTitle(selector);
-console.log(title)
+    useEffect(() => {
+        dispatch(fetchArticle())
+    }, [dispatch]);
     return (
         <>
-            <div>トップページ</div>
-            <button onClick={() => dispatch(signOut())}>Sign Out</button>
-            <button onClick={() => dispatch(push('/new'))}>new</button>
-            <div>兎</div>
+            <Header />
+            <div className="main-container">
+                <section>
+                    {articles.length > 0 && (
+                        articles.map(article => (
+                            <ArticleCard key={article.id} article={article} />
+                        ))
+                    )}
+                </section>
+            </div>
         </>
     )
 }
