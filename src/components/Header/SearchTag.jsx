@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import SeachSpace from './SeachSpace';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +46,7 @@ const SearchTags = (props) => {
 
     useEffect(() => {
         dispatch(fetchFeel())
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
@@ -71,8 +72,6 @@ const SearchTags = (props) => {
                     label={"追加"}
                 />
             </div>
-            <Divider />
-            <div className="space-top">
                 {saveFeeles.length > 0 && (
                     saveFeeles.map(feel => {
                         return (
@@ -87,7 +86,10 @@ const SearchTags = (props) => {
                         )
                     }
                     ))}
-            </div>
+            <div className="space-m"/>
+            <Divider />
+            <div className="space-m"/>
+            <SeachSpace />
         </>
     )
 }

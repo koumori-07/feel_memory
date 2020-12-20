@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Header from '../components/Header/Header'
 import { db } from '../firebase';
-import { fetchArticle } from '../reducks/article/operation';
-import { getArticles } from '../reducks/article/selector';
 import Chip from '@material-ui/core/Chip';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { makeStyles } from '@material-ui/styles';
-import { ImageSearchOutlined } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Article = () => {
     const selector = useSelector((state) => state);
-    const dispatch = useDispatch()
     const path = selector.router.location.pathname
     const id = path.split('/article/')[1]
     const classes = useStyles();
@@ -53,7 +49,7 @@ const Article = () => {
             setItems(data.items)
             setImages(data.images)
         })
-    }, [])
+    }, [id])
     return (
         <>
             <Header />
@@ -84,7 +80,7 @@ const Article = () => {
                     {images.length > 0 && (
                         images.map((image, index) => (
                             <span key={index} className="image-size">
-                                <img src={image.path} />
+                                <img src={image.path} alt="投稿画像"/>
                             </span>
                         )
                         )

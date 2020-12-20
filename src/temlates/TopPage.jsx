@@ -13,7 +13,7 @@ const TopPage = () => {
 
     useEffect(() => {
         dispatch(fetchArticle())
-    }, []);
+    }, [dispatch]);
     return (
         <>
             <Header />

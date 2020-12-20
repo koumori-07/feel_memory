@@ -1,12 +1,10 @@
 import React, { useCallback, useState } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { createStyles } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { useDispatch } from "react-redux";
@@ -32,9 +30,6 @@ const useStyles = makeStyles(() =>
     }))
 
 const Header = () => {
-    const theme = useTheme();
-    const [openleft, setOpenleft] = useState(false);
-    const [openright, setOpenright] = useState(false);
     const dispatch = useDispatch();
     const classes = useStyles();
 

@@ -1,4 +1,3 @@
-import { push } from "connected-react-router";
 import { db } from "../../firebase"
 import { deleteFeelAction, fetchFeelAction } from "./action";
 

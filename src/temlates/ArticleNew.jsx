@@ -1,4 +1,3 @@
-import { push } from 'connected-react-router';
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { ImageArea } from '../components/Article';
@@ -20,7 +19,7 @@ const ArticleNew = () => {
         [article, setArticle] = useState(""),
         [images, setImages] = useState([]),
         [checkedItems, setCheckedItems] = useState([]);
-
+    
     const inputTitle = useCallback((event) => {
         setTitle(event.target.value)
     }, [setTitle])
@@ -54,7 +53,7 @@ const ArticleNew = () => {
                 <div className="text-center title-sample">投稿</div>
                 <div className="space-l" />
 
-                <FeelTest feeles={saveFeeles} checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
+                <FeelTest feeles={saveFeeles} checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
 
                 <TextInput
                     fullWidth={true}// 幅の指定

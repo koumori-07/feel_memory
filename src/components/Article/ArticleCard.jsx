@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { deleteAricle } from '../../reducks/article/operation';
 import Chip from '@material-ui/core/Chip';
@@ -47,11 +45,11 @@ const useStyles = makeStyles({
     icon: {
         color: "green",
         marginTop: "10px",
+        marginRight:"1vw",
         '&:hover': {
             background: "#c5e1a5",
             borderRadius: "30px",
-            height: "35px",
-            width: "35px"
+            fontSize:"40px"
         },
     }
 });

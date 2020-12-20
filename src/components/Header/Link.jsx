@@ -1,7 +1,6 @@
 import { push } from 'connected-react-router'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { ButtonModel } from '../UIkit'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
