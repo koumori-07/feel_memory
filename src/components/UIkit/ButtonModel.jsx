@@ -16,7 +16,8 @@ const useStyles = makeStyles({
 const ButtonModel = (props) => {
     const classes = useStyles();
     return (
-        <Button className={classes.button} variant="contained" onClick={() => props.onClick()} >
+        <Button className={classes.button}
+            variant="contained" onClick={() => props.onClick()} >
             {props.label}
         </Button>
     )

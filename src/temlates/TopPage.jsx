@@ -4,6 +4,7 @@ import { ArticleCard } from '../components/Article';
 import { useEffect } from "react";
 import { fetchArticle } from "../reducks/article/operation";
 import Header from "../components/Header/Header";
+import Weather from "../components/Weather";
 
 
 const TopPage = () => {
@@ -17,6 +18,7 @@ const TopPage = () => {
     return (
         <>
             <Header />
+            <Weather />
             <div className="main-container">
                 <section>
                     {articles.length > 0 && (

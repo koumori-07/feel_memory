@@ -9,7 +9,6 @@ import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        textAlign: "center",
         margin: "0 auto",
         padding: "1rem",
         height: "auto",
@@ -24,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: "3rem",
         fontFamily: "klee,sans-serif",
+        textAlign: "center",
     },
     article: {
         margin: "0 auto",
         marginBottom: "3vh",
         marginTop: "3vh",
-        fontFamily: 'Yu Mincho Light,YuMincho,Yu Mincho,游明朝体'
-
+        fontFamily: 'Yu Mincho Light,YuMincho,Yu Mincho,游明朝体',
     }
 }))
 const Article = () => {
@@ -41,6 +40,7 @@ const Article = () => {
     const [article, setArticle] = useState({});
     const [items, setItems] = useState([]);
     const [images, setImages] = useState([]);
+    const styles = { whiteSpace: 'pre-line' };
 
     useEffect(() => {
         db.collection("articles").doc(id).get().then(doc => {
@@ -58,8 +58,8 @@ const Article = () => {
                     {article.title}
                 </div>
                 <Divider />
-                <div className={classes.article}>
-                    {article.article}
+                <div className={classes.article} style={styles}
+>                    {article.article}
                 </div>
                 <div className="article-tag">
                     {items.length > 0 && (

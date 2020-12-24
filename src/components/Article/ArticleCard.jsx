@@ -29,13 +29,12 @@ const useStyles = makeStyles({
         fontSize: 30,
         textAlign: "center",
         fontFamily: "klee,sans-serif",
-        height: "8vh",
         overflow: "hidden",
         textOverflow: "ellipsis",
         whiteSpace: "nowrap"
     },
     pos: {
-        marginBottom: 12,
+        marginBottom: 12, 
 
 
     },

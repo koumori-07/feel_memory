@@ -6,7 +6,6 @@ import { auth, db, FirebaseTimestamp } from '../../firebase/index'
 const usersRef = db.collection('users')
 
 // 認証
-
 export const listenAuthState = () => {
     return async (dispatch) => {
         return auth.onAuthStateChanged(user => {
@@ -25,6 +24,7 @@ export const listenAuthState = () => {
                             role: data.role,
                             uid: user.uid,
                             username: data.username,
+                            createdAt:data.updated_at,
                         }))
                     })
             } else {
@@ -57,6 +57,7 @@ export const signIn = (email, password) => {
                                 role: data.role,
                                 uid: uid,
                                 username: data.username,
+                                createdAt:data.updated_at
                             }))
                             dispatch(push('/'))
                         })

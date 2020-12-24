@@ -65,8 +65,7 @@ export const deleteAricle = (id) => {
 // feelesの抽出
 const feelesRef = db.collection("feeles")
 export const selectFeeles = (value) => {
-    return async (dispatch, getState) => {
-        feelesRef.doc(value).get()
+    return async (dispatch) => {
         articleRef.orderBy('update_at', 'desc').get()
             .then(snapshots => {
                 const articleList = []
@@ -84,7 +83,7 @@ export const selectFeeles = (value) => {
 }
 // 全件表示
 export const allFeeles = (value) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         articleRef.orderBy('update_at', 'desc').get()
             .then(snapshots => {
                 const articleList = []
@@ -97,3 +96,30 @@ export const allFeeles = (value) => {
             })
     }
 }
+
+// 日付で抽出
+const dateToString = (data) => {
+    return data.getFullYear() + '/'
+        + ('00' + (data.getMonth() + 1)).slice(-2) + '/'
+        + ('00' + data.getDate()).slice(-2) + ' '
+};
+export const dateSelectArticle = (date) => {
+    return async (dispatch) => {
+        articleRef.orderBy('update_at', 'desc').get()
+            .then(snapshots => {
+                const articleList = []
+                snapshots.forEach(snapshot => {
+                    const article = snapshot.data()
+                    const fullDate = dateToString(date)
+                    const newDate = dateToString(article.update_at.toDate())
+                    if (fullDate <= newDate) {
+                        articleList.push(article)
+                        dispatch(fetchArticleAction(articleList))
+                    } else {
+                        dispatch(fetchArticleAction(articleList))
+                    }
+                })
+            })
+    }
+}
+

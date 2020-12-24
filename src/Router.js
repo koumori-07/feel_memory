@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Switch } from "react-router";
 import Auth from './Auth';
-import { Article, ArticleNew, SignIn, SignUp, TopPage } from './temlates';
+import { Article, ArticleNew, SignIn, SignUp, TopPage, Profile, ProfileEdit } from './temlates';
+
 
 
 const Router = () => {
@@ -13,7 +14,9 @@ const Router = () => {
             <Auth >
                 <Route exact path="(/)?" component={TopPage} />
                 <Route path="/new(/:id)?" component={ArticleNew} />
-                <Route exact path="/article/:id" component={Article}/>
+                <Route exact path="/article/:id" component={Article} />
+                <Route exact path="/user/:id" component={Profile} />
+                <Route path="/user/new/:id" component={ProfileEdit} />
             </Auth>
         </Switch>
     );

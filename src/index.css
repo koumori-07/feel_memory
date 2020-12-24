@@ -86,7 +86,7 @@ max-width: 1024;
 
 .title{
     font-family: 'Apple Chancery','Impact','Arial Rounded MT Bold',sans-serif;
-    font-size: 35px;
+    font-size: 30px;
 }
 .title:hover {
     transform: scale(1.2, 1.5);
@@ -183,4 +183,15 @@ font-size: 3vw;
 .linkHover:hover{
     background-color: #CBFFD3;
 }
+.search-master{
+    position: absolute;
+}
+.search{
+    font-size: 50px;
+    color: green;
+    margin-left:3vw
+}
 
+.search-icon:hover{
+    font-size: 2.5rem;
+}

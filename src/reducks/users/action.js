@@ -13,7 +13,7 @@ export const signOutAction = () => {
             isSignedIn: false,
             role: "",
             uid: "",
-            username: ""
+            username: "",  
         }
     }
 };

@@ -13,6 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import SeachSpace from './SeachSpace';
 import { selectFeeles, allFeeles } from '../../reducks/article/operation';
+import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,11 +51,18 @@ const SearchTags = (props) => {
 
     return (
         <>
+            <div className="space-s"/>
             <IconButton onClick={(e) => props.leftDrawerToggle(e, false)}>
                 {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
-            {/* 中身↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */}
+            <div className="space-m"/>
+            <Divider />
+            <SeachSpace />
+          
             <div className="space-left space-top">
+                <Divider />
+                <div className="space-m"/>
+
                 <TextInput
                     fullWidth={false}// 幅の指定
                     label={"feel"}
@@ -93,6 +101,7 @@ const SearchTags = (props) => {
                     )
                 }
                 ))}
+            
         </>
     )
 }

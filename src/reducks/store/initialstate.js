@@ -3,7 +3,7 @@ const initialstate = {
         isSignedIn: false,
         role: "",
         uid: "",
-        username: ""
+        username: "",
     },
     articles: {
         title: "",

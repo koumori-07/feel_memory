@@ -14,7 +14,6 @@ const ArticleNew = () => {
     const saveFeeles = getFeeles(selector);
     let id = window.location.pathname.split('/new')[1];
 
-
     const [title, setTitle] = useState(""),
         [article, setArticle] = useState(""),
         [images, setImages] = useState([]),
@@ -72,7 +71,7 @@ const ArticleNew = () => {
                     margin="dense"
                     multiline={true}// 複数行の入力
                     required={true}// 必須か
-                    rows={5}// 行数
+                    rows={15}// 行数
                     value={article}
                     type={"text"}
                     onChange={inputArticle}

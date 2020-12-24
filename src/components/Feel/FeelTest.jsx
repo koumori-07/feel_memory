@@ -32,13 +32,11 @@ const FeelTest = (props) => {
         ]
         )
         if (checkedItems.includes(event.target.value)) {
-            // trueの要素のみを抽出し配列を作成
             setCheckedItems(checkedItems.filter(item => item !== event.target.value))
         } else {
             setCheckedItems([...checkedItems, event.target.value])
         }
     }
-
     return (
         <>
             {feeles.map((feel => {
@@ -53,7 +51,6 @@ const FeelTest = (props) => {
                                 checked={checkedItems[feel]} />}
                                 label={feel.feel}
                             />
-                        
                     </FormControl>
                     
                 )
