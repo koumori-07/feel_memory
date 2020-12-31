@@ -3,9 +3,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
 const Spot = (props) => {
-    const value = props.value
     const spot = props.spot
     const inputSpot = props.inputSpot
+    
     return (
         <>
             <Select

@@ -10,7 +10,7 @@ import { ButtonModel } from '../UIkit';
 import { useDispatch } from 'react-redux';
 import { dateSelectArticle } from '../../reducks/article/operation';
 
-const SeachSpace = () => {
+const SeachSpace = (props) => {
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ const SeachSpace = () => {
                     }} />
             </Grid>
             </MuiPickersUtilsProvider>
-            <ButtonModel onClick={() =>dispatch(dateSelectArticle(selectedDate))}
+            <ButtonModel onClick={() =>dispatch(dateSelectArticle(props.uId,selectedDate))}
                     label={"検索"}
                 />
 </>

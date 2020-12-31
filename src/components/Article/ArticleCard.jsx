@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteAricle } from '../../reducks/article/operation';
 import Chip from '@material-ui/core/Chip';
 import ImageSwiper from '../UIkit/ImageSwiper';
@@ -13,6 +13,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { push } from 'connected-react-router';
 import EditIcon from '@material-ui/icons/Edit';
+import { getUserId } from '../../reducks/users/selector';
 
 const useStyles = makeStyles({
     root: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
         whiteSpace: "nowrap"
     },
     pos: {
-        marginBottom: 12, 
+        marginBottom: 12,
 
 
     },
@@ -44,13 +45,18 @@ const useStyles = makeStyles({
     icon: {
         color: "green",
         marginTop: "10px",
-        marginRight:"1vw",
+        marginRight: "1vw",
         '&:hover': {
             background: "#c5e1a5",
             borderRadius: "30px",
-            fontSize:"40px"
+            fontSize: "40px"
         },
-    }
+    },
+    chip: {
+        background: '#8bc34a',
+        color: "#c7f7d4",
+        fontSize: "20px"
+    },
 });
 const ArticleCard = (props) => {
     const classes = useStyles();
@@ -59,7 +65,8 @@ const ArticleCard = (props) => {
     const article = props.article.article;
     const items = props.article.items;
     const images = props.article.images;
-
+    const selector = useSelector((state) => state)
+    const uId = getUserId(selector)
     const dateToString = (data) => {
         return data.getFullYear() + '/'
             + ('00' + (data.getMonth() + 1)).slice(-2) + '/'
@@ -81,25 +88,17 @@ const ArticleCard = (props) => {
                             {article}
                         </div>
                         <div className="item-list">
-                            {items.length > 0 && (
-                                items.map((items, index) => (
-                                    <span key={index} className="space-left-s">
-                                        <Chip
-                                            icon={<LocalOfferIcon />}
-                                            label={items}
-                                            className={classes.tag}
-                                            variant="outlined"
-                                            onClick={()=>console.log(items)}
-                                        />
-                                    </span>
-                                ))
-                            )}
+                            <Chip
+                                icon={<LocalOfferIcon />}
+                                className={classes.chip}
+                                label={items}
+                            />
                         </div>
                         <CardActions className="space-between">
                             <div>
                                 <DeleteForeverIcon
                                     className={classes.icon}
-                                    onClick={() => dispatch(deleteAricle(props.article.id))}
+                                    onClick={() => dispatch(deleteAricle(uId, props.article.id))}
                                 />
                                 <VisibilityIcon
                                     className={classes.icon}

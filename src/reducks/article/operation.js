@@ -2,10 +2,10 @@ import { push } from "connected-react-router";
 import { db, FirebaseTimestamp } from "../../firebase"
 import { deleteArticleAction, fetchArticleAction } from "./action";
 
-const articleRef = db.collection("articles")
-
+const usersRef = db.collection('users')
+const articleRef =db.collection('articles')
 // articleの保存
-export const newArticle = (id, title, article, images, items) => {
+export const newArticle = (uId, id, title, article, images, items) => {
     return async (dispatch) => {
         const timestamp = FirebaseTimestamp.now();
         if (title === "" || article === "") {
@@ -27,9 +27,8 @@ export const newArticle = (id, title, article, images, items) => {
         }
         //doc()メソッド,DB内で、データを保存するための場所を採番
         //set()メソッド,IDの場所に保存
-        return articleRef.doc(id).set(data, { merge: true }) // firestoreに保存
+        return usersRef.doc(uId).collection("articles").doc(id).set(data, { merge: true }) // firestoreに保存
             .then(() => {
-                dispatch(push('/new'))
                 dispatch(push('/'))
             }).catch((error) => {
                 throw new Error(error)
@@ -37,12 +36,11 @@ export const newArticle = (id, title, article, images, items) => {
     }
 }
 // firebaseからの取得
-export const fetchArticle = () => {
+export const fetchArticle = (uId) => {
     return async (dispatch) => {
-        articleRef.orderBy('update_at', 'desc').get()
+        usersRef.doc(uId).collection("articles").orderBy('update_at', 'desc').get()
             .then(snapshots => {
                 const articleList = []
-
                 snapshots.forEach(snapshot => {
                     const article = snapshot.data()
                     articleList.push(article)
@@ -52,9 +50,9 @@ export const fetchArticle = () => {
     }
 }
 // articleの削除
-export const deleteAricle = (id) => {
+export const deleteAricle = (uId,id) => {
     return async (dispatch, getState) => {
-        articleRef.doc(id).delete()
+        usersRef.doc(uId).collection("articles").doc(id).delete()
             .then(() => {
                 const prevArticle = getState().articles.list
                 const nextArticle = prevArticle.filter(article => article.id !== id)
@@ -64,9 +62,9 @@ export const deleteAricle = (id) => {
 }
 // feelesの抽出
 const feelesRef = db.collection("feeles")
-export const selectFeeles = (value) => {
+export const selectFeeles = (uId,value) => {
     return async (dispatch) => {
-        articleRef.orderBy('update_at', 'desc').get()
+        usersRef.doc(uId).collection("articles").orderBy('update_at', 'desc').get()
             .then(snapshots => {
                 const articleList = []
                 snapshots.forEach(snapshot => {
@@ -82,16 +80,15 @@ export const selectFeeles = (value) => {
     }
 }
 // 全件表示
-export const allFeeles = (value) => {
+export const allFeeles = (uId,value) => {
     return async (dispatch) => {
-        articleRef.orderBy('update_at', 'desc').get()
+        usersRef.doc(uId).collection('articles').orderBy('update_at', 'desc').get()
             .then(snapshots => {
                 const articleList = []
                 snapshots.forEach(snapshot => {
                     const article = snapshot.data()
                     articleList.push(article)
                     dispatch(fetchArticleAction(articleList))
-
                 })
             })
     }
@@ -103,9 +100,9 @@ const dateToString = (data) => {
         + ('00' + (data.getMonth() + 1)).slice(-2) + '/'
         + ('00' + data.getDate()).slice(-2) + ' '
 };
-export const dateSelectArticle = (date) => {
+export const dateSelectArticle = (uId,date) => {
     return async (dispatch) => {
-        articleRef.orderBy('update_at', 'desc').get()
+        usersRef.doc(uId).collection("articles").orderBy('update_at', 'desc').get()
             .then(snapshots => {
                 const articleList = []
                 snapshots.forEach(snapshot => {

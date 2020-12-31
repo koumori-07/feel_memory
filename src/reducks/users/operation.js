@@ -1,4 +1,4 @@
-import { signInAction,signOutAction } from "./action";
+import { deleteUserAction, fetchProfileAction, signInAction, signOutAction } from "./action";
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimestamp } from '../../firebase/index'
 
@@ -14,7 +14,7 @@ export const listenAuthState = () => {
                     .then(snapshot => {
                         const data = snapshot.data()
                         if (!data) {
-                            throw new Error('ユーザーデータが存在しません。')
+                            dispatch(push('/signin'))
                         }
 
                         // Update logged in user state
@@ -24,7 +24,9 @@ export const listenAuthState = () => {
                             role: data.role,
                             uid: user.uid,
                             username: data.username,
-                            createdAt:data.updated_at,
+                            createdAt: data.updated_at,
+                            spot: data.spot,
+                            goal: data.goal
                         }))
                     })
             } else {
@@ -42,28 +44,32 @@ export const signIn = (email, password) => {
             alert("必須項目が未入力です")
             return false
         }
-        return auth.signInWithEmailAndPassword(email, password)
-            .then(result => {
-                const user = result.user
-                if (user) {
-                    const uid = user.uid
-
-                    db.collection('users').doc(uid).get()
-                        .then(snapshot => {
-                            const data = snapshot.data();
-
-                            dispatch(signInAction({
-                                isSigneIn: true,
-                                role: data.role,
-                                uid: uid,
-                                username: data.username,
-                                createdAt:data.updated_at
-                            }))
-                            dispatch(push('/'))
-                        })
+            return auth.signInWithEmailAndPassword(email, password)
+                .then(result => {
+                    const user = result.user
+                    const uId = result.user.id
+                    if (user) {
+                        const uid = user.uid
+                        db.collection('users').doc(uid).get()
+                            .then(snapshot => {
+                                const data = snapshot.data();
+                                dispatch(signInAction({
+                                    isSigneIn: true,
+                                    role: data.role,
+                                    uid: uid,
+                                    username: data.username,
+                                    createdAt: data.updated_at,
+                                    spot: "",
+                                    goal: ""
+                                }))
+                                dispatch(push('/'))
+                            })
+                    } else{
+                        alert('存在せず')
+                        return false
+                    }
                 }
-            }
-            )
+                )
     }
 }
 // サインアップ
@@ -91,7 +97,9 @@ export const signUp = (username, email, password, confirmPassword) => {
                         role: "customer",
                         uid: uid,
                         updated_at: timestamp,
-                        username: username
+                        username: username,
+                        spot: "",
+                        goal: ""
                     }
                     db.collection('users').doc(uid).set(userInitialData)
                         .then(() => {
@@ -102,12 +110,55 @@ export const signUp = (username, email, password, confirmPassword) => {
     }
 }
 // サインアウト
-export const signOut=()=>{
-    return async(dispatch)=>{
+export const signOut = () => {
+    return async (dispatch) => {
         auth.signOut()// firebase.authのサインアウト
-        .then(()=>{
-            dispatch(signOutAction());
-            dispatch(push('/signin'))
+            .then(() => {
+                dispatch(signOutAction());
+                dispatch(push('/signin'))
+            })
+    }
+}
+// プロフィールの追加更新
+export const profileAdd = (uId, spot, goal) => {
+    return async (dispatch) => {
+        usersRef.doc(uId).get()
+            .then(snapshot => {
+                const data = snapshot.data();
+                const newData = {
+                    email: data.email,
+                    isSignedIn: true,
+                    role: data.role,
+                    uid: uId,
+                    username: data.username,
+                    spot: spot,
+                    goal: goal
+                }
+                return usersRef.doc(uId).set(newData, { marge: true })
+                    .then(() => {
+                        dispatch(push('/user/' + uId))
+                    })
+            }
+            )
+    }
+}
+
+export const fetchProfile = (uId) => {
+    return async (dispatch) => {
+        usersRef.doc(uId).get()
+            .then(snapshot => {
+                dispatch(fetchProfileAction(snapshot.data()))
+            })
+    }
+}
+export const deleteAcount = (uId) => {
+    return async (dispatch, getState) => {
+        usersRef.doc(uId).delete()
+            .then(() => {
+                const prevUser = getState().users.list
+                const nextUser = prevUser
+                dispatch(deleteUserAction(nextUser))
+                dispatch(push('/signin'))
         })
     }
 }

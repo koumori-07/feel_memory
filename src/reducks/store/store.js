@@ -9,7 +9,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { UsersReducer } from '../users/reducers';
 import { ArticlesReducer } from '../article/reducers';
 import { FeelesReducer } from '../feeles/reducers';
-
+import { ProfileReducer } from '../profile/reducers'
 // createStoreの再定義 - historyを引数で受け、connected-react-routerの利用を抽象化
 export default function createStore(history) {
   let middleWares = [routerMiddleware(history), thunk];
@@ -18,7 +18,8 @@ export default function createStore(history) {
       router: connectRouter(history),
       users: UsersReducer,
       articles: ArticlesReducer,
-      feeles: FeelesReducer
+      feeles: FeelesReducer,
+      profile: ProfileReducer
     }),
     applyMiddleware(
       ...middleWares

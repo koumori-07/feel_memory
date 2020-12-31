@@ -7,6 +7,10 @@ const App = () => {
     <>
       <div className="main">
         <Router />
+        <div>
+        <h1>みやだいもうくん</h1>
+      </div>
+
       </div>
     </>
   );

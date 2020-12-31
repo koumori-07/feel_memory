@@ -4,6 +4,8 @@ const initialstate = {
         role: "",
         uid: "",
         username: "",
+        spot: "",
+        goal:"",
     },
     articles: {
         title: "",
@@ -11,8 +13,13 @@ const initialstate = {
         images: [],
     },
     feeles: {
-        feel:""
+        feel:"",
+    },
+    profile: {
+        spot: "",
+        goal:""
     }
+    
 };
 
 export default initialstate

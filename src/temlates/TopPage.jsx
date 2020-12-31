@@ -5,20 +5,22 @@ import { useEffect } from "react";
 import { fetchArticle } from "../reducks/article/operation";
 import Header from "../components/Header/Header";
 import Weather from "../components/Weather";
+import { getUserId } from "../reducks/users/selector";
 
 
 const TopPage = () => {
     const selector = useSelector((state) => state);
     const articles = getArticles(selector)
+    const uId = getUserId(selector);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchArticle())
+        dispatch(fetchArticle(uId))
     }, [dispatch]);
+    
     return (
         <>
             <Header />
-            <Weather />
             <div className="main-container">
                 <section>
                     {articles.length > 0 && (

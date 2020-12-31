@@ -13,7 +13,23 @@ export const signOutAction = () => {
             isSignedIn: false,
             role: "",
             uid: "",
-            username: "",  
+            username: "",
+            spot: "",
+            goal: ""
         }
     }
 };
+export const FETCH_PROFILE_ACTION = "FETCH_PROFILE_ACTION";
+export const fetchProfileAction = (profile) => {
+    return {
+        type: "FETCH_PROFILE_ACTION",
+        payload: profile
+    }
+}
+export const DELETE_USER = "DELETE_USER";
+export const deleteUserAction = (userState) => {
+    return {
+        type: "DELETE_USER",
+        payload:userState
+    }
+}

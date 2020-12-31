@@ -7,15 +7,26 @@ service cloud.firestore {
      allow update: if request.auth.uid == userId;
      allow delete: if request.auth.uid == userId;
    }
+    match /users/{userId}/articles/{articleId} {
+      allow read: if request.auth.uid != null;
+     allow write: if request.auth.uid != null;
+     allow create;
+   }
+    match /users/{userId}/feeles/{feelId} {
+      allow read: if request.auth.uid != null;
+     allow write: if request.auth.uid != null;
+     allow create;
+   }
 
    match /articles/{articleId} {
      allow read: if request.auth.uid != null;
      allow write: if request.auth.uid != null;
+     allow create;
    }
 
    match/feeles/{feelId} {
      allow read: if request.auth.uid != null;
      allow write: if request.auth.uid != null;
    }
-  }
+}
 }

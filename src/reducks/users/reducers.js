@@ -12,6 +12,16 @@ export const UsersReducer = (state = initialstate.users, action) => {
             return {
                 ...action.payload
             };
+        case Actions.FETCH_PROFILE_ACTION:
+            return {
+                ...state,
+                ...action.payload
+            };
+        case Actions.DELETE_USER:
+            return {
+                ...state,
+                ...action.payload
+            }
         default:
             return state
     }

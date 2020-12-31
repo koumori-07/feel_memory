@@ -1,30 +1,29 @@
 import { db } from "../../firebase"
 import { deleteFeelAction, fetchFeelAction } from "./action";
-
+const usersRef = db.collection('users')
 const feelesRef = db.collection("feeles")
 // タグの保存
-export const newFeel = (feel) => {
+export const newFeel = (uId,feel) => {
     return async (dispatch) => {
-
         const data = {
             feel: feel,
+            checked:true
         }
         const ref = feelesRef.doc();
         const id = ref.id;
         data.id = id
-
-        return feelesRef.doc(id).set(data,{marge:true})
+        return usersRef.doc(uId).collection('feeles').doc(id).set(data,{marge:true})
             .then(() => {
-                dispatch(fetchFeel())
+                dispatch(fetchFeel(uId))
             }).catch((error) => {
             throw new Error(error)
         })
     }
 }
 // タグの削除
-export const deleteFeel = (id) => {
+export const deleteFeel = (uId,id) => {
     return async (dispatch, getState) => {
-        feelesRef.doc(id).delete()
+        usersRef.doc(uId).collection('feeles').doc(id).delete()
             .then(() => {
                 const prevFeeles = getState().feeles.list
                 const nextFeeles = prevFeeles.filter(feel => feel.id !== id)
@@ -33,9 +32,9 @@ export const deleteFeel = (id) => {
     }
 }
 // タグの取得
-export const fetchFeel = () => {
+export const fetchFeel = (uId) => {
     return async (dispatch) => {
-        feelesRef.get()
+        usersRef.doc(uId).collection('feeles').get()
             .then(snapshot => {
                 const feelList = []
                 snapshot.forEach(snapshot => {

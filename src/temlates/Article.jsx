@@ -6,6 +6,7 @@ import Chip from '@material-ui/core/Chip';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import { makeStyles } from '@material-ui/styles';
 import Divider from '@material-ui/core/Divider';
+import { getUserId } from '../reducks/users/selector';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Article = () => {
     const selector = useSelector((state) => state);
+    const uId=getUserId(selector)
     const path = selector.router.location.pathname
     const id = path.split('/article/')[1]
     const classes = useStyles();
@@ -43,13 +45,13 @@ const Article = () => {
     const styles = { whiteSpace: 'pre-line' };
 
     useEffect(() => {
-        db.collection("articles").doc(id).get().then(doc => {
+        db.collection("users").doc(uId).collection("articles").doc(id).get().then(doc => {
             const data = doc.data()
             setArticle(data)
             setItems(data.items)
             setImages(data.images)
         })
-    }, [id])
+    }, [setArticle])
     return (
         <>
             <Header />
@@ -61,21 +63,13 @@ const Article = () => {
                 <div className={classes.article} style={styles}
 >                    {article.article}
                 </div>
-                <div className="article-tag">
-                    {items.length > 0 && (
-                        items.map((item, index) => {
-                            return (
-                                <span key={index} className="space-left ">
-                                    <Chip
-                                        icon={<LocalOfferIcon />}
-                                        label={item}
-                                        className={classes.chip}
-                                    />
-                                </span>
-                            )
-                        }
-                        ))}
-                </div>
+                <div className="item-list">
+                            <Chip
+                                icon={<LocalOfferIcon />}
+                                className={classes.chip}
+                                label={items}
+                            />
+                        </div>
                 <div className="list-image-size">
                     {images.length > 0 && (
                         images.map((image, index) => (

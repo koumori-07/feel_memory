@@ -1,33 +1,58 @@
 import { push } from 'connected-react-router';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/Header/Header'
-import { getUserName,getCreatedAt, getUserId } from '../reducks/users/selector';
+import { fetchaddProfile } from '../reducks/profile/operation';
+import { fetchProfile } from '../reducks/users/operation';
+import { getUserName, getCreatedAt, getUserId, getSpot, getGoal } from '../reducks/users/selector';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { makeStyles } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 
+const useStyles = makeStyles({
+    icon: {
+        color: "green",
+        marginTop: "10px",
+        marginRight: "1vw",
+        '&:hover': {
+            background: "#c5e1a5",
+            borderRadius: "30px",
+            fontSize: "40px"
+        },
+        article: {
+            margin: "0 auto",
+            marginBottom: "3vh",
+            marginTop: "3vh",
+            fontFamily: 'Yu Mincho Light,YuMincho,Yu Mincho,游明朝体',
+        }
+    },
+})
 const Profile = () => {
+    const dispatch = useDispatch();
     const selector = useSelector((state) => state);
     const uId = getUserId(selector)
     const uName = getUserName(selector);
-    const createdAt = getCreatedAt(selector);
+    const spot = getSpot(selector);
+    const goal = getGoal(selector);
+    const classes = useStyles();
+    const styles = { whiteSpace: 'pre-line' };
 
-    const dateToString = (data) => {
-        return data.getFullYear() + '/'
-            + ('00' + (data.getMonth() + 1)).slice(-2) + '/'
-            + ('00' + data.getDate()).slice(-2) + ' '
-        
-    };
-    const timestamp = dateToString(createdAt.toDate())
-    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchProfile(uId))
+    },[dispatch])
     return (
         <>
             <Header />
-            <div>
+            <div className="main-container">
+            <Card>
+                <CardContent >
                 <div className="text-center title-sample">{uName}</div>
-                <div>目標：インプットフィールド</div>
-                <div>地点登録</div>
-                <span>開始日</span><span>{timestamp}</span>
-                <div onClick={()=>dispatch(push('/user/new/'+uId))}>編集画面へ</div>
-            </div>
+                <div className="text-left" style={styles}>{goal}</div>
+                        <EditIcon className={classes.icon}onClick={() => dispatch(push('/user/new/' + uId))}/>
+                    </CardContent>
+                </Card>
+                </div>
         </>
     )
 }

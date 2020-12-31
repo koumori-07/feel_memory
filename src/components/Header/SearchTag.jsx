@@ -6,6 +6,7 @@ import { ButtonModel, TextInput } from '../UIkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
 import { getFeeles } from '../../reducks/feeles/selector';
+import { getUserId } from '../../reducks/users/selector';
 import { deleteFeel, fetchFeel, newFeel } from '../../reducks/feeles/operation';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,6 +37,7 @@ const SearchTags = (props) => {
     const dispatch = useDispatch();
     const selector = useSelector((state) => state);
     const saveFeeles = getFeeles(selector);
+    const uId = getUserId(selector);
     const [createFeeles, setCreateFeeles] = useState("");
     const theme = useTheme();
     const classes = useStyles();
@@ -46,7 +48,7 @@ const SearchTags = (props) => {
 
 
     useEffect(() => {
-        dispatch(fetchFeel())
+        dispatch(fetchFeel(uId))
     }, [dispatch]);
 
     return (
@@ -57,7 +59,7 @@ const SearchTags = (props) => {
             </IconButton>
             <div className="space-m"/>
             <Divider />
-            <SeachSpace />
+            <SeachSpace uId={uId}/>
           
             <div className="space-left space-top">
                 <Divider />
@@ -75,7 +77,7 @@ const SearchTags = (props) => {
                     onChange={inputCreateFeeles}
                 />
                 <ButtonModel onClick={() =>
-                    dispatch(newFeel(createFeeles))
+                    dispatch(newFeel(uId, createFeeles),setCreateFeeles(""))
                 }
                     label={"追加"}
                 />
@@ -84,7 +86,7 @@ const SearchTags = (props) => {
             <Chip
                 label={"全て"}
                 className={classes.chip}
-                onClick={() => dispatch(allFeeles())}
+                onClick={() => dispatch(allFeeles(uId))}
             />
             {saveFeeles.length > 0 && (
                 saveFeeles.map(feel => {
@@ -93,9 +95,9 @@ const SearchTags = (props) => {
                             <Chip
                                 icon={<LocalOfferIcon />}
                                 label={feel.feel}
-                                onDelete={() => dispatch(deleteFeel(feel.id))}
+                                onDelete={() => dispatch(deleteFeel(uId,feel.id))}
                                 className={classes.chip}
-                                onClick={() => dispatch(selectFeeles(feel.feel))}
+                                onClick={() => dispatch(selectFeeles(uId,feel.feel))}
                             />
                         </div>
                     )

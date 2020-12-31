@@ -1,35 +1,36 @@
 import React, { useCallback, useState } from 'react';
-import axios from "axios";
 import { TextField } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { getSpot } from '../reducks/users/selector';
 
-const API_ENDPOINT = 'https://api.openweathermap.org/data/2.5/weather';
 
 const Weather = () => {
-    const apiKey = 'ed39a51693d97293eac6c4823f836d17';
     const [requestCity, setRequestCity] = useState("");
     const [city, setCity] = useState("");
-    const [response, setResopnse] = useState([]);
+    const selector = useSelector((state) => state);
+    const spot = getSpot(selector);
 
     const inputWeather = useCallback((event) => {
         setRequestCity(event.target.value)
     }, [setRequestCity])
 
-    const handleGetWeather = () => {
-        axios
-            .get(API_ENDPOINT, {
-                params: {
-                    q: requestCity,
-                    APPID: apiKey
-                }
-            })
-            .then(res => {
-                setResopnse(res.data.weather)
-                console.log(res.data.weather)
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
+    // const handleGetWeather = () => {
+    //     console.log(spot)
+    //     axios
+    //         .get(API_ENDPOINT, {
+    //             params: {
+    //                 q: spot,
+    //                 APPID: apiKey
+    //             }
+    //         })
+    //         .then(res => {
+    //             setResopnse(res.data.weather)
+    //             console.log(res.data)
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // }
     return (
         <div>
             <TextField
@@ -43,9 +44,8 @@ const Weather = () => {
                 onChange={inputWeather}
             />
             <button
-                onClick={handleGetWeather}
             >ボタン</button>
-            {response.length > 0 && (
+            {/* {response.length > 0 && (
                 response.map((res, index) => {
                     return (
                         <div key={index}>
@@ -53,7 +53,7 @@ const Weather = () => {
                         </div>
                     )
                 })
-            )}
+            )} */}
         </div>
     )
 }

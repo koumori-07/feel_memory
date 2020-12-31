@@ -1,3 +1,4 @@
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { ImageArea } from '../components/Article';
@@ -6,19 +7,22 @@ import Header from '../components/Header/Header';
 import { ButtonModel, TextInput } from '../components/UIkit'
 import { db } from '../firebase';
 import { newArticle } from '../reducks/article/operation';
+import { fetchFeel } from '../reducks/feeles/operation';
 import { getFeeles } from '../reducks/feeles/selector';
+import { getUserId } from '../reducks/users/selector';
 
 const ArticleNew = () => {
     const dispatch = useDispatch();
     const selector = useSelector((state) => state);
     const saveFeeles = getFeeles(selector);
+    const uId = getUserId(selector)
     let id = window.location.pathname.split('/new')[1];
 
     const [title, setTitle] = useState(""),
         [article, setArticle] = useState(""),
         [images, setImages] = useState([]),
-        [checkedItems, setCheckedItems] = useState([]);
-    
+        [checkedItems, setCheckedItems] = useState("");
+
     const inputTitle = useCallback((event) => {
         setTitle(event.target.value)
     }, [setTitle])
@@ -27,23 +31,29 @@ const ArticleNew = () => {
         setArticle(event.target.value)
     }, [setArticle])
 
+    const inputFeel = useCallback((event) => {
+        setCheckedItems(event.target.value)
+    }, [setCheckedItems])
+
     useEffect(() => {
         if (id !== "") {
-            db.collection("articles").doc(id).get().then(snapshot => {
+            db.collection("users").doc(uId).collection("articles").doc(id).get().then(snapshot => {
                 const article = snapshot.data()
                 setTitle(article.title)
                 setArticle(article.article)
                 setImages(article.images)
                 setCheckedItems(article.items)
-                console.log(article)
             })
         } else {
             setTitle("")
             setArticle("")
             setImages([])
-            setCheckedItems([])
+            setCheckedItems("")
         }
-    },[])
+    }, [])
+    useEffect(() => {
+        dispatch(fetchFeel(uId))
+    }, [dispatch]);
 
     return (
         <>
@@ -52,43 +62,56 @@ const ArticleNew = () => {
                 <div className="text-center title-sample">投稿</div>
                 <div className="space-l" />
 
-                <FeelTest feeles={saveFeeles} checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
+                {/* <FeelTest feeles={saveFeeles} checkedItems={checkedItems} setCheckedItems={setCheckedItems} inputFeel={inputFeel}/> */}
+                <FormControl>
+                    <InputLabel>feel</InputLabel>
+                    <Select
+                        value={checkedItems}
+                        onChange={inputFeel}
+                        label="feel"
+                    >
+                        {saveFeeles.length > 0 && (
+                            saveFeeles.map(feel => {
+                                return (
+                                    <MenuItem key={feel.id} value={feel.feel}>
+                                        {feel.feel}
+                                    </MenuItem>
+                                )
+                            })
+                        )}
+                    </Select>
+                </FormControl>
+                    <TextInput
+                        fullWidth={true}// 幅の指定
+                        label={"title"}
+                        margin="dense"
+                        multiline={false}// 複数行の入力
+                        required={true}// 必須か
+                        rows={1}// 行数
+                        value={title}
+                        type={"text"}
+                        onChange={inputTitle}
+                    />
+                    <TextInput
+                        fullWidth={true}// 幅の指定
+                        label={"article"}
+                        margin="dense"
+                        multiline={true}// 複数行の入力
+                        required={true}// 必須か
+                        rows={10}// 行数
+                        value={article}
+                        type={"text"}
+                        onChange={inputArticle}
+                    />
+                    <ImageArea images={images} setImages={setImages} />
 
-                <TextInput
-                    fullWidth={true}// 幅の指定
-                    label={"title"}
-                    margin="dense"
-                    multiline={false}// 複数行の入力
-                    required={true}// 必須か
-                    rows={1}// 行数
-                    value={title}
-                    type={"text"}
-                    onChange={inputTitle}
-                />
-                <TextInput
-                    fullWidth={true}// 幅の指定
-                    label={"article"}
-                    margin="dense"
-                    multiline={true}// 複数行の入力
-                    required={true}// 必須か
-                    rows={15}// 行数
-                    value={article}
-                    type={"text"}
-                    onChange={inputArticle}
-                />
-                <ImageArea images={images} setImages={setImages} />
-
-                <div className="text-center">
-                    <ButtonModel
-                        onClick={() =>
-                            dispatch(newArticle(id, title, article, images, checkedItems))
-                        }
-                        label={"submit"} />
-                </div>
-                <div className="space-l" />
-
-                <div className="text-center">
-                </div>
+                    <div className="text-center">
+                        <ButtonModel
+                            onClick={() =>
+                                dispatch(newArticle(uId, id, title, article, images, checkedItems))
+                            }
+                            label={"submit"} />
+                    </div>
 
             </div>
         </>
